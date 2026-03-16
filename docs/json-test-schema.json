@@ -1,0 +1,155 @@
+{
+  "study_plan": {
+    "subject": "Samfunnskunnskap",
+    "level": "Yrkesfag",
+    "topic": "Velferdsstaten",
+    "exam_date": "2026-03-18",
+    "generated_date": "2026-03-11",
+
+    "flashcards": [
+      {
+        "question": "Hva er en velferdsstat?",
+        "answer": "En stat der myndighetene har ansvar for innbyggernes velferd gjennom ordninger som helsevesen, utdanning og trygd."
+      },
+      {
+        "question": "Hva betyr omfordeling?",
+        "answer": "At staten bruker skatter og avgifter til å fordele penger fra de som har mye til de som trenger støtte."
+      },
+      {
+        "question": "Hva er NAV?",
+        "answer": "Arbeids- og velferdsforvaltningen i Norge som gir økonomisk støtte og hjelper folk med arbeid."
+      },
+      {
+        "question": "Hva er trygd?",
+        "answer": "Økonomisk støtte fra staten til personer som ikke kan jobbe eller trenger hjelp."
+      },
+      {
+        "question": "Hvordan finansieres velferdsstaten?",
+        "answer": "Gjennom skatter, avgifter og inntekter fra blant annet olje."
+      },
+      {
+        "question": "Nevn to eksempler på velferdsordninger.",
+        "answer": "Gratis skole og offentlig helsetjeneste."
+      },
+      {
+        "question": "Hva er sykepenger?",
+        "answer": "Penger man får fra staten når man er syk og ikke kan jobbe."
+      },
+      {
+        "question": "Hva er dagpenger?",
+        "answer": "Økonomisk støtte til personer som er arbeidsledige."
+      },
+      {
+        "question": "Nevn en fordel med velferdsstaten.",
+        "answer": "Den gir økonomisk trygghet og hjelp til innbyggere."
+      },
+      {
+        "question": "Nevn en utfordring for velferdsstaten.",
+        "answer": "Flere eldre og færre i arbeid kan gjøre ordningene dyrere."
+      }
+    ],
+
+    "practice_tasks": [
+      {
+        "type": "multiple_choice",
+        "question": "Hva er hovedideen bak en velferdsstat?",
+        "options": [
+          "At staten ikke blander seg i økonomien",
+          "At staten sørger for velferd og trygghet for innbyggerne",
+          "At alle tjenester er private",
+          "At skatter ikke eksisterer"
+        ],
+        "correct_answer": "At staten sørger for velferd og trygghet for innbyggerne"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Hva brukes skatter blant annet til?",
+        "options": [
+          "Å betale for offentlige tjenester",
+          "Å gi penger bare til politikere",
+          "Å stoppe all handel",
+          "Å finansiere private selskaper"
+        ],
+        "correct_answer": "Å betale for offentlige tjenester"
+      },
+      {
+        "type": "short_answer",
+        "question": "Forklar kort hva omfordeling betyr."
+      },
+      {
+        "type": "short_answer",
+        "question": "Nevn tre eksempler på velferdsordninger i Norge."
+      },
+      {
+        "type": "long_answer",
+        "question": "Forklar hvordan velferdsstaten finansieres."
+      },
+      {
+        "type": "long_answer",
+        "question": "Beskriv to fordeler og to utfordringer med velferdsstaten."
+      }
+    ],
+
+    "days": [
+      {
+        "date": "2026-03-11",
+        "focus": "Hva er velferdsstaten",
+        "tasks": [
+          "Les om hva en velferdsstat er",
+          "Lag notater om definisjon og kjennetegn",
+          "Øv på flashcards 1–4"
+        ]
+      },
+      {
+        "date": "2026-03-12",
+        "focus": "Finansiering av velferdsstaten",
+        "tasks": [
+          "Les om skatter og avgifter",
+          "Skriv notater",
+          "Øv på flashcards 5–7"
+        ]
+      },
+      {
+        "date": "2026-03-13",
+        "focus": "Velferdsordninger",
+        "tasks": [
+          "Les om NAV og trygdeordninger",
+          "Øv på flashcards 8–10",
+          "Svar på 2 kortsvar-oppgaver"
+        ]
+      },
+      {
+        "date": "2026-03-14",
+        "focus": "Fordeler og ulemper",
+        "tasks": [
+          "Lag liste over fordeler og ulemper",
+          "Svar på en lengre oppgave"
+        ]
+      },
+      {
+        "date": "2026-03-15",
+        "focus": "Utfordringer",
+        "tasks": [
+          "Les om eldrebølge og økonomi",
+          "Svar på en oppgave"
+        ]
+      },
+      {
+        "date": "2026-03-16",
+        "focus": "Repetisjon",
+        "tasks": [
+          "Gå gjennom alle flashcards",
+          "Ta multiple choice-oppgaver"
+        ]
+      },
+      {
+        "date": "2026-03-17",
+        "focus": "Siste repetisjon",
+        "tasks": [
+          "Svar på alle oppgaver",
+          "Oppsummer temaet med egne ord"
+        ]
+      }
+    ]
+  }
+}

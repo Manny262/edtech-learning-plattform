@@ -31,6 +31,7 @@ urlpatterns = [
     
     path('api/auth/', include('auth_kit.urls')),
     path('api/auth/social/', include('auth_kit.social.urls')),
+    path('api/', include('edtech_django_app.urls')),
     
     
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

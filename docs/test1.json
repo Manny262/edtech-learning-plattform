@@ -1,0 +1,203 @@
+{
+    "study_plan": {
+        "subject": "General Studies",
+        "level": "Intermediate",
+        "topic": "Core Concepts",
+        "exam_date": "2024-02-15",
+        "test_type": "General Assessment",
+        "generated_date": "2025-01-20",
+        "language": "English",
+        "flashcards": {
+            "1": [
+                {
+                    "question": "What is the scientific method?",
+                    "answer": "A systematic approach to research involving observation, hypothesis formation, experimentation, and conclusion drawing."
+                },
+                {
+                    "question": "Define critical thinking.",
+                    "answer": "The objective analysis and evaluation of an issue to form a judgment using reasoning and evidence."
+                },
+                {
+                    "question": "What is deductive reasoning?",
+                    "answer": "A logical process where a conclusion is based on the concordance of multiple premises that are generally assumed to be true."
+                }
+            ],
+            "2": [
+                {
+                    "question": "What is inductive reasoning?",
+                    "answer": "A method of reasoning in which a generalization is made based on specific observations or cases."
+                },
+                {
+                    "question": "Define hypothesis.",
+                    "answer": "A proposed explanation for a phenomenon that can be tested through experimentation and observation."
+                },
+                {
+                    "question": "What is empirical evidence?",
+                    "answer": "Information acquired by observation or experimentation that can be verified through repeated testing."
+                }
+            ],
+            "3": [
+                {
+                    "question": "What is a controlled variable?",
+                    "answer": "A factor in an experiment that is kept constant to ensure that any changes in results are due to the independent variable."
+                },
+                {
+                    "question": "Define correlation vs causation.",
+                    "answer": "Correlation means two variables are related, while causation means one variable directly causes a change in another."
+                },
+                {
+                    "question": "What is peer review?",
+                    "answer": "The evaluation of work by one or more people with similar competencies to ensure quality and validity."
+                }
+            ]
+        },
+        "multiple_choice": [
+            {
+                "question": "Which of the following is the first step in the scientific method?",
+                "options": [
+                    "Forming a hypothesis",
+                    "Making observations",
+                    "Conducting experiments",
+                    "Drawing conclusions"
+                ],
+                "correct_answer": "Making observations"
+            },
+            {
+                "question": "What type of reasoning moves from general principles to specific conclusions?",
+                "options": [
+                    "Inductive reasoning",
+                    "Deductive reasoning",
+                    "Abductive reasoning",
+                    "Analogical reasoning"
+                ],
+                "correct_answer": "Deductive reasoning"
+            },
+            {
+                "question": "Which variable is manipulated by the researcher in an experiment?",
+                "options": [
+                    "Dependent variable",
+                    "Independent variable",
+                    "Controlled variable",
+                    "Confounding variable"
+                ],
+                "correct_answer": "Independent variable"
+            },
+            {
+                "question": "What does it mean when two variables show correlation?",
+                "options": [
+                    "One causes the other",
+                    "They change together in a predictable pattern",
+                    "They are unrelated",
+                    "They cancel each other out"
+                ],
+                "correct_answer": "They change together in a predictable pattern"
+            }
+        ],
+        "days": [
+            {
+                "date": "2024-01-21",
+                "focus": "Introduction to Core Concepts",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Read introduction materials and take notes on key terminology and fundamental principles"
+                    },
+                    "Task 2": {
+                        "description": "Review basic concepts using flashcards",
+                        "type": "Flashcards",
+                        "set": 1
+                    }
+                }
+            },
+            {
+                "date": "2024-01-22",
+                "focus": "Scientific Method and Research",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Study the scientific method steps and practice identifying them in example scenarios"
+                    },
+                    "Task 2": {
+                        "description": "Complete multiple choice practice questions on research methods"
+                    }
+                }
+            },
+            {
+                "date": "2024-01-23",
+                "focus": "Reasoning and Logic",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Learn about deductive and inductive reasoning with practical examples"
+                    },
+                    "Task 2": {
+                        "description": "Study reasoning concepts",
+                        "type": "Flashcards",
+                        "set": 2
+                    }
+                }
+            },
+            {
+                "date": "2024-01-24",
+                "focus": "Evidence and Experimentation",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Review types of evidence, variables, and experimental design principles"
+                    },
+                    "Task 2": {
+                        "description": "Practice identifying variables in research scenarios"
+                    }
+                }
+            },
+            {
+                "date": "2024-01-25",
+                "focus": "Review Week 1 Content",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Review all flashcard sets from the week",
+                        "type": "Flashcards",
+                        "set": 1
+                    },
+                    "Task 2": {
+                        "description": "Complete mixed practice questions covering all topics studied"
+                    }
+                }
+            },
+            {
+                "date": "2024-01-26",
+                "focus": "Critical Analysis Skills",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Study critical thinking frameworks and practice analyzing arguments"
+                    },
+                    "Task 2": {
+                        "description": "Review analysis concepts",
+                        "type": "Flashcards",
+                        "set": 3
+                    }
+                }
+            },
+            {
+                "date": "2024-01-27",
+                "focus": "Practice and Application",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Work through case studies applying learned concepts to real-world scenarios"
+                    },
+                    "Task 2": {
+                        "description": "Complete practice test questions under timed conditions"
+                    }
+                }
+            },
+            {
+                "date": "2024-02-14",
+                "focus": "Final Review",
+                "tasks": {
+                    "Task 1": {
+                        "description": "Review all flashcard sets and focus on areas of weakness"
+                    },
+                    "Task 2": {
+                        "description": "Complete final practice assessment and review incorrect answers thoroughly"
+                    }
+                }
+            }
+        ]
+    }
+}

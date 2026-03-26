@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'auth_kit.social',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
+    'edtech_django_app',
 ]
 
 REST_FRAMEWORK = {

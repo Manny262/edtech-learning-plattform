@@ -8,28 +8,32 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     async submitLogin(username, password) {
-        axios.post('/api/auth/login/',  {username: username, password: password})
-                .then(response => {
-                    this.user = response.data;
-                    this.isAuthenticated = true;
-                    
-                    console.log('Login successful:', response.data);
-                    window.location.href = '/about'
-                })
-                .catch(error => {
-                    console.error('Login failed:', error);
-                    // Handle login error
-                });
+      try {
+        const response = await axios.post('/api/auth/login/', {username: username, password: password});
+        this.user = response.data;
+        this.isAuthenticated = true;
+
+        this.token = response.data.token;
+        localStorage.setItem('jwt_token', this.token);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
         
+        console.log('Login successful:', response.data);
+        window.location.href = '/about';
+      } catch (error) {
+        console.error('Login failed:', error);
+        this.isAuthenticated = false;
+      }
     },
     async checkAuth() {
       console.log("checking status");
       try{
+      
       const res = await axios.get("/api/auth/user/", {
         withCredentials: true,
       });
       if (res.status === 200) {
         this.user = res.data;
+
         this.isAuthenticated = true;
         console.log("✅ authenticated: ", this.user);}
       }catch(err){

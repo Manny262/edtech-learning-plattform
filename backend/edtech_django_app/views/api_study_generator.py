@@ -7,6 +7,7 @@ from rest_framework import status
 
 import json
 import anthropic
+from datetime import date
 
 from pathlib import Path
 import os
@@ -35,7 +36,7 @@ SCHEMA_TEMPLATE = {
             {
                 "question": "",
                 "options": ["", "", "", ""],
-                "correct_answer": ""
+                "correct_answer_index": 0
             }
         ],
         "days": [
@@ -84,9 +85,9 @@ Fill in the schema with the following details:
 - exam_date: {exam_date}
 - test_type: {test_type}
 - language: {language}
-- generated_date: today's date
+- generated_date: {date.today().isoformat()}
 
-Generate relevant flashcards (sets), multiple choice questions, and a day-by-day study schedule up to the exam date.
+Generate relevant flashcards (sets), multiple choice questions, and a day-by-day study schedule up to the exam date from the generated date.
 Write all content in: {language}.
 Respond with ONLY the filled JSON, no extra text."""
 
@@ -110,3 +111,11 @@ Respond with ONLY the filled JSON, no extra text."""
     study_plan = json.loads(raw)
     return Response(study_plan, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@ensure_csrf_cookie
+def save_study_plan(request):
+    data = json.loads(request.body)
+    study_plan = data.get('study_plan')
+    print(study_plan)
+    return Response(status=200)

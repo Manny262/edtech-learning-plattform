@@ -45,8 +45,9 @@
                 <div>
                     <h2>Flashcards:</h2>
                     <div v-for="(set, key) in data.study_plan.flashcards" :key="key">
+                        <h3>Set: {{ key }}</h3>
                         <div v-for="(card, i) in set" :key="i" style=" margin-bottom: 1rem;">
-                            <label for="{{ i }}">Spørsmål: {{ i }}</label>
+                            <label for="{{ i }}">Spørsmål: {{ i + 1 }}</label>
                             <textarea name="{{ i }}" id="" v-model="card.question"
                                 style="width: 100%; resize: vertical">
                             </textarea>

@@ -7,6 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      meta: { requiresAuth: true },
       component: HomeView,
     },
     {
@@ -16,28 +17,30 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       meta: { requiresAuth: true },
       component: () => import('../views/AboutView.vue'),
-        },
-        {
+    },
+    {
       path: '/login',
       name: 'login',
       meta: { requiresAuth: false },
       component: () => import('../views/login.vue'),
-        },
-      ],
-    })
+    },
+    { path: '/create-study-plan', 
+      name: 'create-study-plan',
+      meta: { requiresAuth: true },
+      component: () => import('../views/CreateStudyPlan.vue'),
+    },
+  ],
+})
 
-   
-
-router.beforeEach((to, from, next)=>{
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
-  if(to.meta.requiresAuth){
-    authStore.checkAuth()
+  if (to.meta.requiresAuth) {
+    await authStore.checkAuth()
 
-    if(authStore.isAuthenticated) next();
-    else next('/login')
-
-  }else {
-    next()               
+    if (!authStore.isAuthenticated)  return next({name: 'login'});
+    else next()
+  } else {
+    next()
   }
 })
 

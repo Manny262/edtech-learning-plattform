@@ -5,15 +5,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/login">login</RouterLink>
+        <RouterLink to="/create-study-plan">create study plan</RouterLink>
       </nav>
     </div>
   </header>
@@ -23,17 +21,20 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <style scoped>
 header {
+  display: flex;
+  justify-content: center;
   line-height: 1.5;
-  max-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--color-background);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
 
 nav {
-  width: 100%;
+  width: auto;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
@@ -48,7 +49,6 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
 }

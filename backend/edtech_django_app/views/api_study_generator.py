@@ -21,31 +21,32 @@ api_key = os.environ.get('ANTHROPIC_API_KEY')
 SCHEMA_TEMPLATE = {
     "study_plan": {
         "subject": "",
-        "level": "",
+        "grade": "",
         "topic": "",
         "exam_date": "",
         "test_type": "",
+        "test_type_id": "",
         "generated_date": "",
         "language": "",
         "flashcards": {
-            "1": [{"question": "", "answer": ""}],
-            "2": [{"question": "", "answer": ""}],
-            "3": [{"question": "", "answer": ""}]
+            "1": [{"question_text": "", "answer_text": ""}],
+            "2": [{"question_text": "", "answer_text": ""}],
+            "3": [{"question_text": "", "answer_text": ""}]
         },
         "multiple_choice": [
             {
-                "question": "",
+                "question_text": "",
                 "options": ["", "", "", ""],
                 "correct_answer_index": 0
             }
         ],
         "days": [
             {
-                "date": "",
-                "focus": "",
+                "scheduled_date": "",
+                "focus_area": "",
                 "tasks": {
                     "Task 1": {"description": ""},
-                    "Task 2": {"description": "", "type": "Flashcards", "set": 1}
+                    "Task 2": {"description": "", "type": "Flashcards", "set_number": 1}
                 }
             }
         ]
@@ -67,6 +68,15 @@ def generate_study_plan(request):
     exam_date = request.POST['exam_date']
     test_type = request.POST['test_type']
     language  = request.POST['language']
+    
+    match test_type:
+        case 'Skriftlig prøve':
+            test_type_id = 1
+        case 'Fagsamtale':
+            test_type_id = 2
+        case 'Eksamen':
+            test_type_id = 3
+    
     print(subject, level, topic, exam_date, test_type, language)
     if not all([subject, level, topic, exam_date, test_type, language]):
         return Response(
@@ -84,6 +94,7 @@ Fill in the schema with the following details:
 - topic: {topic}
 - exam_date: {exam_date}
 - test_type: {test_type}
+- test_type_id: {test_type_id}
 - language: {language}
 - generated_date: {date.today().isoformat()}
 

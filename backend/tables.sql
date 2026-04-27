@@ -31,12 +31,15 @@ CREATE TABLE study_course(
 	subject VARCHAR(200) NOT NULL,
 	grade VARCHAR(200) NOT NULL,
 	exam_date TIMESTAMPTZ NOT NULL,
-	initial_prompt TEXT,
+	-- initial_prompt TEXT,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_study_course_user_id ON study_course(user_id);
 CREATE INDEX idx_study_course_exam_date ON study_course(exam_date);
+
+-- Add missing language column to study_course
+ALTER TABLE study_course ADD COLUMN language VARCHAR(100) NOT NULL DEFAULT 'English';
 
 -- Files associated with study courses
 CREATE TABLE file(
@@ -113,4 +116,20 @@ CREATE TABLE multiple_choice_option(
 );
 
 CREATE INDEX idx_multiple_choice_option_question_id ON multiple_choice_option(question_id);
+
+-- Insert question types
+INSERT INTO question_type (type_name, description) VALUES
+('Flashcard', 'Question answered with flashcard format'),
+('Multiple_choice', 'Question with multiple choice options');
+
+-- Insert task types
+INSERT INTO task_type (type_name, description) VALUES
+('Flashcard', 'Task to practice flashcard questions'),
+('Multiple_choice', 'Task to practice multiple choice questions');
+
+-- Insert test types (Norwegian)
+INSERT INTO test_type (name, description) VALUES
+('Skriftlig prøve', 'Written test examination'),
+('Fagsamtale', 'Oral exam discussion'),
+('Eksamen', 'Final examination');
 

@@ -28,16 +28,15 @@ SCHEMA_TEMPLATE = {
         "test_type_id": "",
         "generated_date": "",
         "language": "",
-        "flashcards": {
-            "1": [{"question_text": "", "answer_text": ""}],
-            "2": [{"question_text": "", "answer_text": ""}],
-            "3": [{"question_text": "", "answer_text": ""}]
-        },
+        "flashcards": [
+            {"question_text": "", "answer_text": "", "set_number": 1}
+        ],
         "multiple_choice": [
             {
                 "question_text": "",
                 "options": ["", "", "", ""],
-                "correct_answer_index": 0
+                "correct_answer_index": 0,
+                "set_number": 1
             }
         ],
         "days": [
@@ -45,8 +44,9 @@ SCHEMA_TEMPLATE = {
                 "scheduled_date": "",
                 "focus_area": "",
                 "tasks": {
-                    "Task 1": {"description": ""},
-                    "Task 2": {"description": "", "type": "Flashcards", "set_number": 1}
+                    "1": {"description": ""},
+                    "2": {"description": "", "type": "Flashcards", "set_number": 1},
+                    "3": {"description": "", "type": "Multiple_choices", "set_number": 2}
                 }
             }
         ]
@@ -55,7 +55,16 @@ SCHEMA_TEMPLATE = {
 
 SYSTEM_PROMPT = """You are an educational assistant that generates structured study plans.
 You must respond with ONLY valid JSON that follows the provided schema exactly.
-Do not include any explanation or text outside the JSON."""
+Do not include any explanation or text outside the JSON.
+
+Rules:
+- flashcards is a flat list. Each item must include "type": "Flashcards", a "set_number" (1, 2, or 3), "question_text", and "answer_text". Distribute questions evenly across sets.
+- multiple_choice is a flat list. Each item must include "type": "Multiple_choices" and a "set_number" (1, 2, or 3) distributing questions evenly across sets.
+- Each study day task that practices flashcards must have "type": "Flashcards" and "set_number" matching one of the flashcard sets.
+- Each study day task that practices multiple choice must have "type": "Multiple_choices" and "set_number" matching a multiple choice set.
+- Tasks with no quiz component have only a "description" field.
+- All dates must be in ISO 8601 format (YYYY-MM-DD).
+- test_type_id must be the integer provided, not a string."""
 
 
 @api_view(['POST'])
@@ -106,10 +115,16 @@ Respond with ONLY the filled JSON, no extra text."""
     client = anthropic.Anthropic(api_key=api_key)
     message = client.messages.create(
         model="claude-sonnet-4-5",
-        max_tokens=4096,
+        max_tokens=8096,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_message}],
     )
+
+    if message.stop_reason == "max_tokens":
+        return Response(
+            {"error": "Response was truncated. Try a shorter topic or date range."},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
     raw = message.content[0].text.strip()
     print(message.content)
@@ -119,7 +134,16 @@ Respond with ONLY the filled JSON, no extra text."""
         if raw.startswith("json"):
             raw = raw[4:]
 
-    study_plan = json.loads(raw)
+    try:
+        study_plan = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return Response(
+            {"error": f"Failed to parse study plan: {str(e)}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
     return Response(study_plan, status=status.HTTP_200_OK)
 
 @api_view(['POST'])

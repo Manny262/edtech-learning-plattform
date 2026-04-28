@@ -74,8 +74,9 @@ CREATE TABLE task(
 	task_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	study_day_id BIGINT NOT NULL REFERENCES study_day(study_day_id) ON DELETE CASCADE,
 	task_type_id BIGINT NOT NULL REFERENCES task_type(task_type_id) ON DELETE RESTRICT,
+	order_number INTEGER,
 	description TEXT NOT NULL,
-	set_number INTEGER NOT NULL CHECK (set_number > 0),
+	set_number INTEGER,
 	completed BOOLEAN NOT NULL DEFAULT FALSE,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -87,8 +88,9 @@ CREATE INDEX idx_task_completed ON task(completed);
 -- Questions within tasks
 CREATE TABLE question(
 	question_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	task_id BIGINT NOT NULL REFERENCES task(task_id) ON DELETE CASCADE,
+	study_course_id BIGINT NOT NULL REFERENCES study_course(study_course_id) ON DELETE CASCADE,
 	question_type_id BIGINT NOT NULL REFERENCES question_type(question_type_id) ON DELETE RESTRICT,
+	set_number INTEGER NOT NULL;
 	question_text TEXT NOT NULL,
 	completed BOOLEAN NOT NULL DEFAULT FALSE,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -124,12 +126,22 @@ INSERT INTO question_type (type_name, description) VALUES
 
 -- Insert task types
 INSERT INTO task_type (type_name, description) VALUES
-('Flashcard', 'Task to practice flashcard questions'),
-('Multiple_choice', 'Task to practice multiple choice questions');
+('Flashcards', 'Task to practice flashcard questions'),
+('Multiple_choices', 'Task to practice multiple choice questions'),
+('None', 'No specified type');
 
 -- Insert test types (Norwegian)
 INSERT INTO test_type (name, description) VALUES
 ('Skriftlig prøve', 'Written test examination'),
 ('Fagsamtale', 'Oral exam discussion'),
 ('Eksamen', 'Final examination');
+
+-- Questions belong to a study course, not a specific task
+-- ALTER TABLE question
+--     DROP COLUMN task_id,
+--     ADD COLUMN study_course_id BIGINT NOT NULL REFERENCES study_course(study_course_id) ON DELETE CASCADE,
+--     ADD COLUMN set_number INTEGER NOT NULL;
+
+CREATE INDEX idx_question_study_course_id ON question(study_course_id);
+CREATE INDEX idx_question_set_number ON question(set_number);
 

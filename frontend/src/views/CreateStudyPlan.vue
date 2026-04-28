@@ -85,6 +85,7 @@
             </section>
             <!-- <pre>{{ data.study_plan.flashcards }}</pre>
             <pre>{{ data.study_plan.multiple_choice }}</pre> -->
+            <p>{{ data.study_plan }}</p>
             <button @click.prevent="postStudyPlan()" type="submit">Lag studieplan</button>
         </div>
     </main>

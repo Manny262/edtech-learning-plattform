@@ -2,10 +2,10 @@
     "subject": "Sammfunnskunnskap",
     "grade": "Yrkesfag",
     "topic": "Velferdstaten",
-    "exam_date": "2026-05-05",
+    "exam_date": "05-05-2026",
     "test_type": "Skriftlig prøve",
     "test_type_id": 1,
-    "generated_date": "2026-04-28",
+    "generated_date": "28-04-2026",
     "language": "Norsk",
     "flashcards": [
         {
@@ -253,7 +253,7 @@
     ],
     "days": [
         {
-            "scheduled_date": "2026-04-28",
+            "scheduled_date": "28-04-2026",
             "focus_area": "Innføring i velferdsstaten",
             "tasks": {
                 "1": {
@@ -272,7 +272,7 @@
             }
         },
         {
-            "scheduled_date": "2026-04-29",
+            "scheduled_date": "29-04-2026",
             "focus_area": "Den nordiske modellen og norsk velferdshistorie",
             "tasks": {
                 "1": {
@@ -291,7 +291,7 @@
             }
         },
         {
-            "scheduled_date": "2026-04-30",
+            "scheduled_date": "30-04-2026",
             "focus_area": "Velferdstatens organisering og institusjoner",
             "tasks": {
                 "1": {
@@ -310,7 +310,7 @@
             }
         },
         {
-            "scheduled_date": "2026-05-01",
+            "scheduled_date": "01-05-2026",
             "focus_area": "Utfordringer og finansiering av velferdsstaten",
             "tasks": {
                 "1": {
@@ -329,7 +329,7 @@
             }
         },
         {
-            "scheduled_date": "2026-05-02",
+            "scheduled_date": "02-05-2026",
             "focus_area": "Trepartssamarbeid og omfordeling",
             "tasks": {
                 "1": {
@@ -348,7 +348,7 @@
             }
         },
         {
-            "scheduled_date": "2026-05-03",
+            "scheduled_date": "03-05-2026",
             "focus_area": "Pensjonsreform og fremtidig bærekraft",
             "tasks": {
                 "1": {
@@ -367,7 +367,7 @@
             }
         },
         {
-            "scheduled_date": "2026-05-04",
+            "scheduled_date": "04-05-2026",
             "focus_area": "Repetisjon og helhetlig forståelse",
             "tasks": {
                 "1": {
@@ -386,7 +386,7 @@
             }
         },
         {
-            "scheduled_date": "2026-05-05",
+            "scheduled_date": "05-05-2026",
             "focus_area": "Eksamen - Skriftlig prøve",
             "tasks": {
                 "1": {

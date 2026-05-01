@@ -8,7 +8,7 @@ DECLARE
 
     v_study_day_id BIGINT;
     v_task_type_id BIGINT;
-    task RECORD;
+    v_task RECORD;
 
     v_Multiple_choices_type_id BIGINT;
     v_Flashcards_type_id BIGINT;
@@ -28,27 +28,27 @@ BEGIN
 
 
     INSERT INTO study_course(user_id, test_type_id, topic, subject, grade, exam_date, language)
-    VALUES(user_id, (p_data->>'test_type_id')::INT, p_data->>'topic', p_data->>'subject', p_data->>'grade', p_data->>'exam_date', p_data->>'language')
+    VALUES(user_id, (p_data->>'test_type_id')::INT, p_data->>'topic', p_data->>'subject', p_data->>'grade', TO_TIMESTAMP(p_data->>'exam_date', 'DD-MM-YYYY'), p_data->>'language')
     RETURNING study_course_id INTO v_study_course_id;
 
     
     FOR v_day IN SELECT jsonb_array_elements(p_data->'days')
     LOOP
         INSERT INTO study_day(study_course_id, focus_area, scheduled_date)
-        VALUES(v_study_course_id, v_day->>'focus_area', v_day->>'scheduled_date')
+        VALUES(v_study_course_id, v_day->>'focus_area', TO_TIMESTAMP(v_day->>'scheduled_date', 'DD-MM-YYYY'))
         RETURNING study_day_id INTO v_study_day_id;
         
-        FOR task in jsonb_each(v_day->'tasks')
-        LOOP
-            CASE task.value->>'type'
-                WHEN 'Flashcards' THEN v_task_type_id := v_Flashcards_type_id
-                WHEN 'Multiple_choices' THEN v_task_type_id := v_Multiple_choices_type_id
+       FOR v_task IN SELECT * FROM jsonb_each(v_day->'tasks')
+       LOOP
+            CASE v_task.value->>'type'
+                WHEN 'Flashcards' THEN v_task_type_id := v_Flashcards_type_id;
+                WHEN 'Multiple_choices' THEN v_task_type_id := v_Multiple_choices_type_id;
             ELSE
-                v_task_type_id := v_None_type_id 
+                v_task_type_id := v_None_type_id;
             END CASE;
 
             INSERT INTO task(study_day_id, task_type_id, order_number, description, set_number)
-            VALUES(v_study_day_id, v_task_type_id , task.key, task.value->>'description', task.value->>'set_number');
+            VALUES(v_study_day_id, v_task_type_id , v_task.key::int, v_task.value->>'description', (v_task.value->'set_number')::int);
         END LOOP;
     END LOOP;
 

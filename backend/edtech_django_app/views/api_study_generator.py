@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from django.db import connection as conn
 
 import json
 import anthropic
@@ -63,7 +64,7 @@ Rules:
 - Each study day task that practices flashcards must have "type": "Flashcards" and "set_number" matching one of the flashcard sets.
 - Each study day task that practices multiple choice must have "type": "Multiple_choices" and "set_number" matching a multiple choice set.
 - Tasks with no quiz component have only a "description" field.
-- All dates must be in ISO 8601 format (YYYY-MM-DD).
+- All dates must be in Format (DD-MM-YYYY).
 - test_type_id must be the integer provided, not a string."""
 
 
@@ -78,6 +79,7 @@ def generate_study_plan(request):
     test_type = request.POST['test_type']
     language  = request.POST['language']
     
+
     match test_type:
         case 'Skriftlig prøve':
             test_type_id = 1
@@ -152,5 +154,11 @@ Respond with ONLY the filled JSON, no extra text."""
 def save_study_plan(request):
     data = json.loads(request.body)
     study_plan = data.get('study_plan')
-    print(study_plan)
-    return Response(status=200)
+       
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("CALL save_study_plan(%s::jsonb, %s)", [json.dumps(study_plan), request.user.id])
+        return Response(status=200)
+    except Exception as e:
+        print(str(e))
+        return Response({"error": str(e)}, status=500)

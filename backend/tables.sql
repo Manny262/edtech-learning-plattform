@@ -31,12 +31,15 @@ CREATE TABLE study_course(
 	subject VARCHAR(200) NOT NULL,
 	grade VARCHAR(200) NOT NULL,
 	exam_date TIMESTAMPTZ NOT NULL,
-	initial_prompt TEXT,
+	-- initial_prompt TEXT,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_study_course_user_id ON study_course(user_id);
 CREATE INDEX idx_study_course_exam_date ON study_course(exam_date);
+
+-- Add missing language column to study_course
+ALTER TABLE study_course ADD COLUMN language VARCHAR(100) NOT NULL DEFAULT 'English';
 
 -- Files associated with study courses
 CREATE TABLE file(
@@ -71,8 +74,9 @@ CREATE TABLE task(
 	task_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	study_day_id BIGINT NOT NULL REFERENCES study_day(study_day_id) ON DELETE CASCADE,
 	task_type_id BIGINT NOT NULL REFERENCES task_type(task_type_id) ON DELETE RESTRICT,
+	order_number INTEGER,
 	description TEXT NOT NULL,
-	set_number INTEGER NOT NULL CHECK (set_number > 0),
+	set_number INTEGER,
 	completed BOOLEAN NOT NULL DEFAULT FALSE,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -84,8 +88,9 @@ CREATE INDEX idx_task_completed ON task(completed);
 -- Questions within tasks
 CREATE TABLE question(
 	question_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	task_id BIGINT NOT NULL REFERENCES task(task_id) ON DELETE CASCADE,
+	study_course_id BIGINT NOT NULL REFERENCES study_course(study_course_id) ON DELETE CASCADE,
 	question_type_id BIGINT NOT NULL REFERENCES question_type(question_type_id) ON DELETE RESTRICT,
+	set_number INTEGER NOT NULL;
 	question_text TEXT NOT NULL,
 	completed BOOLEAN NOT NULL DEFAULT FALSE,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -113,4 +118,30 @@ CREATE TABLE multiple_choice_option(
 );
 
 CREATE INDEX idx_multiple_choice_option_question_id ON multiple_choice_option(question_id);
+
+-- Insert question types
+INSERT INTO question_type (type_name, description) VALUES
+('Flashcard', 'Question answered with flashcard format'),
+('Multiple_choice', 'Question with multiple choice options');
+
+-- Insert task types
+INSERT INTO task_type (type_name, description) VALUES
+('Flashcards', 'Task to practice flashcard questions'),
+('Multiple_choices', 'Task to practice multiple choice questions'),
+('None', 'No specified type');
+
+-- Insert test types (Norwegian)
+INSERT INTO test_type (name, description) VALUES
+('Skriftlig prøve', 'Written test examination'),
+('Fagsamtale', 'Oral exam discussion'),
+('Eksamen', 'Final examination');
+
+-- Questions belong to a study course, not a specific task
+-- ALTER TABLE question
+--     DROP COLUMN task_id,
+--     ADD COLUMN study_course_id BIGINT NOT NULL REFERENCES study_course(study_course_id) ON DELETE CASCADE,
+--     ADD COLUMN set_number INTEGER NOT NULL;
+
+CREATE INDEX idx_question_study_course_id ON question(study_course_id);
+CREATE INDEX idx_question_set_number ON question(set_number);
 

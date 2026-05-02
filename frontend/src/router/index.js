@@ -29,6 +29,11 @@ const router = createRouter({
       meta: { requiresAuth: true },
       component: () => import('../views/CreateStudyPlan.vue'),
     },
+    { path: '/timeline/:id?', 
+      name: 'studyplan',
+      meta: { requiresAuth: true },
+      component: () => import('../views/studyplan.vue'),
+    },
   ],
 })
 

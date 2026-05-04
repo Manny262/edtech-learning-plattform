@@ -15,7 +15,8 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input
-                    id="password"
+                    id="current-password"
+                    data-v-d0e06bca
                     v-model="password"
                     type="password"
                     required

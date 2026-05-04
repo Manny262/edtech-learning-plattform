@@ -7,21 +7,42 @@ from rest_framework import status
 from django.db import connection as conn
 
 import json
-import anthropic
-from datetime import date
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-@ensure_csrf_cookie
-def get_study_plan(request, study_plan_id=None):
+from itertools import groupby
+from operator import itemgetter
+
+def clean_task(task):
+        redundant = ['scheduled_date', 'focus_area']
+        return {k: v for k, v in task.items() if k not in redundant}
+            
+def db_query(query, params):
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM get_all_study_plans(%s)', [request.user.id])
-
+    cursor.execute(query, params)
     columns = [col[0] for col in cursor.description]
     results = cursor.fetchall()
     cursor.close()
     
-    study_plans = [dict(zip(columns, row)) for row in results]
-        
-    return Response(study_plans, status=status.HTTP_200_OK)
+    return [dict(zip(columns, row)) for row in results]
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@ensure_csrf_cookie
+def get_study_plan(request, study_course_id=None):
+    if study_course_id:
+        data = db_query('SELECT * FROM get_study_timeline(%s, %s)',[study_course_id, request.user.id])
+       
+        sorted_data = sorted(data, key=itemgetter('scheduled_date'))
+        grouped = {k: list(g) for k, g in groupby(sorted_data, key=itemgetter('scheduled_date')) }
+
+        result = [
+            {"scheduled_date": date,
+                "focus_area": tasks[0]['focus_area'],
+                "tasks": [clean_task(task) for task in tasks ]
+                }
+            for date, tasks in grouped.items()
+        ]
+    else:
+        result = db_query('SELECT * FROM get_all_study_plans(%s)', [request.user.id,])
+ 
+    return Response(result, status=status.HTTP_200_OK)
     

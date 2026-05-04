@@ -18,7 +18,7 @@
             <p><strong>Opprettet:</strong> {{ plan.created_at }}</p>
           </div>
           <div class="plan-actions">
-            <button class="btn-view">Vis</button>
+            <button class="btn-view" @click="$router.push(`/timeline/${plan.study_course_id}`)">Vis</button>
             <button class="btn-edit">Rediger</button>
             <button class="btn-delete">Slett</button>
           </div>
@@ -45,9 +45,9 @@ export default {
   
   methods: {
     fetchStudyPlans() {
-      axios.post('api/study-plan/')
+      axios.get('/api/study-plan/')
       .then(response => {
-        this.studyPlans = response.data;
+        this.studyPlans = response.data
         console.log(response.data)
       })
       .catch(error => {

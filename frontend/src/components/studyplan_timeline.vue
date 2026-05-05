@@ -10,7 +10,8 @@
         <h4>Oppgaver:</h4>
         <div>
           <div v-for="task in day.tasks" :key="task.task_id">
-            <span>{{ task.description }}</span>
+            <button v-if="task.set_number" @click="$router.push(`/practice-page/${routeStudyCourseID}-${ task.set_number }-${ task.type_name }`)" style="cursor: pointer;">{{ task.description }}</button>
+            <span v-else>{{ task.description }}</span>
             <span v-if="task.task_type_id">({{ task.task_type_id }})</span>
           </div>
         </div>
@@ -26,7 +27,8 @@ export default {
   name: 'StudyplanTimeline',
   data() {
     return {
-      studyDays: []
+      studyDays: [],
+      routeStudyCourseID: this.$route.params.id
     }
   },
   mounted(){

@@ -29,3 +29,28 @@ BEGIN
 	WHERE study_course_id = p_study_course_id and user_id = p_user_id;
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION get_flashcards(p_study_course_id BIGINT, p_user_id BIGINT, p_set_number INTEGER)
+RETURNS TABLE(question_id BIGINT, set_number INTEGER, question_text TEXT, completed BOOLEAN, answer_text TEXT)
+LANGUAGE plpgsql
+AS $$
+-- DECLARE
+	-- p_flashcard_type_id BIGINT;
+BEGIN
+	RETURN QUERY
+	-- SELECT question_type_id INTO p_flashcard_type_id FROM question_type WHERE type_name = 'Flascard';
+
+	
+	SELECT q.question_id, q.set_number, q.question_text, q.completed, a.answer_text
+	FROM study_course sc
+	INNER JOIN question q ON q.study_course_id = p_study_course_id
+		AND q.set_number = p_set_number 
+		AND q.question_type_id = 1
+	INNER JOIN answer a USING(question_id)
+	WHERE sc.study_course_id = p_study_course_id AND sc.user_id = p_user_id;
+END;
+$$;
+
+SELECT * FROM get_flashcards(20,1,1);
+
+SELECT * FROM question

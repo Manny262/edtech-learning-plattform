@@ -45,4 +45,14 @@ def get_study_plan(request, study_course_id=None):
         result = db_query('SELECT * FROM get_all_study_plans(%s)', [request.user.id,])
  
     return Response(result, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@ensure_csrf_cookie
+def get_flashcards(request, set):
+    set_params = set.split('-')
+    print('😊', int(set_params[1]))
+    result = db_query('SELECT * FROM get_flashcards(%s,%s,%s)', [int(set_params[0]), request.user.id, int(set_params[1])])
     
+    return Response(result, status=status.HTTP_200_OK)

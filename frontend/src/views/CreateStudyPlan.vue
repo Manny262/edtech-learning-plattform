@@ -529,6 +529,7 @@ export default {
         async postStudyPlan(){
             try{
                 const res = await axios.post('/api/study-plan/save/', this.data)
+                if (res.status === 200) window.location.href = '/timeline'
                 console.log(res.status)
             }catch(error){
                 console.error(error)

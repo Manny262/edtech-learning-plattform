@@ -40,6 +40,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
       component: () => import('../views/studyplan.vue'),
     },
+    { path: '/practice-page/:set?', 
+      name: 'practice-page',
+      meta: { requiresAuth: true },
+      component: () => import('../views/PracticePage.vue'),
+    },
+
   ],
 })
 

@@ -24,6 +24,12 @@ const router = createRouter({
       meta: { requiresAuth: false },
       component: () => import('../views/login.vue'),
     },
+    {
+      path: '/signup',
+      name: 'signup',
+      meta: { requiresAuth: false },
+      component: () => import('../views/signup.vue'),
+    },
     { path: '/create-study-plan', 
       name: 'create-study-plan',
       meta: { requiresAuth: true },
@@ -34,6 +40,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
       component: () => import('../views/studyplan.vue'),
     },
+    { path: '/practice-page/:set?', 
+      name: 'practice-page',
+      meta: { requiresAuth: true },
+      component: () => import('../views/PracticePage.vue'),
+    },
+
   ],
 })
 

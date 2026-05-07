@@ -77,6 +77,7 @@ def call_anthropic(SYSTEM_PROMPT, user_message):
     try:
         current_model = cache.get('current_model')
         print('Current Model', current_model)
+        
         client = anthropic.Anthropic(api_key=api_key)
         message = client.messages.create(
             model=current_model,

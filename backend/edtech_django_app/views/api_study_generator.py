@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import connection as conn
+from django.core.cache import cache
 
 import json
 import anthropic
@@ -18,6 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / '.env')
 
 api_key = os.environ.get('ANTHROPIC_API_KEY')
+
+models = ['claude-sonnet-4-5', 'claude-haiku-4-5']
+cache.set('current_model', 'claude-sonnet-4-5')
+
 
 SCHEMA_TEMPLATE = {
     "study_plan": {
@@ -68,6 +73,31 @@ Rules:
 - test_type_id must be the integer provided, not a string."""
 
 
+def call_anthropic(SYSTEM_PROMPT, user_message):
+    try:
+        current_model = cache.get('current_model')
+        print('Current Model', current_model)
+        
+        client = anthropic.Anthropic(api_key=api_key)
+        message = client.messages.create(
+            model=current_model,
+            max_tokens=8096,
+            system=SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": user_message}],
+        )
+        return message
+    except anthropic.APIConnectionError as e:
+        if e.status_code == 500:
+            print(f'status 500 error for: {current_model}')
+            
+            cache.set('model_status500', [current_model])
+            
+            for model in models:
+                if model not in cache.get('model_status500'):
+                    cache.set('current_model', model)
+            
+            return call_anthropic(SYSTEM_PROMPT, user_message)
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 @ensure_csrf_cookie
@@ -113,23 +143,15 @@ Generate relevant flashcards (sets), multiple choice questions, and a day-by-day
 Write all content in: {language}.
 Respond with ONLY the filled JSON, no extra text."""
 
-
-    client = anthropic.Anthropic(api_key=api_key)
-    message = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=8096,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_message}],
-    )
-
+    message = call_anthropic(SYSTEM_PROMPT, user_message)
     if message.stop_reason == "max_tokens":
         return Response(
             {"error": "Response was truncated. Try a shorter topic or date range."},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
+        
     raw = message.content[0].text.strip()
-    print(message.content)
+            
     # Strip markdown code fences if present
     if raw.startswith("```"):
         raw = raw.split("```", 2)[1]
@@ -143,8 +165,6 @@ Respond with ONLY the filled JSON, no extra text."""
             {"error": f"Failed to parse study plan: {str(e)}"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
-
 
     return Response(study_plan, status=status.HTTP_200_OK)
 

@@ -1,7 +1,7 @@
 <template>
     <main>
         <h1>Øving</h1>
-        <div class="ParentActiveCard">
+        <div class="ParentActiveFlashCard">
             <span>{{ this.SideType }}: {{ this.SideDisplay }}</span>
             <button id="showOtherSide" @click="flipCard()"> vis {{ this.otherSide }}</button>
             <div class="ParentNext" v-if="SideType === 'svar'">
@@ -13,8 +13,9 @@
 </template>
 <script>
 import axios from 'axios';
-
 export default {
+    // Spørsmål = Question, Svar = Answer 
+    
     name: 'practice_page',
     data (){
         return{
@@ -39,7 +40,8 @@ export default {
                 console.log(this.set)
                 
                 localStorage.setItem('question_set_param', setParams)
-                localStorage.setItem('questions_arr', this.set)
+                localStorage.setItem('questions_arr', JSON.stringify(this.set))
+                localStorage.removeItem('completed_questions_arr')
 
                 this.activeCard = this.set[0]
                 this.SideDisplay = this.activeCard.question_text    
@@ -63,11 +65,11 @@ export default {
         },
         nextCard(boolean){
             const current_index = this.activeCardIndex += 1
-            // let arr = JSON.parse(localStorage.getItem('completed_questions_arr')) || []
-            // if(boolean){
-            //     arr.push(this.activeCard)
-            //     localStorage.setItem('completed_questions_arr', JSON.stringify(arr))
-            // }
+            let arr = JSON.parse(localStorage.getItem('completed_questions_arr')) || []
+            if(boolean){
+                arr.push(this.activeCard)
+                localStorage.setItem('completed_questions_arr', JSON.stringify(arr))
+            }
             
             this.activeCard = this.set[current_index]
             

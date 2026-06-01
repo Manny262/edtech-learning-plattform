@@ -45,12 +45,29 @@ BEGIN
 	FROM study_course sc
 	INNER JOIN question q ON q.study_course_id = p_study_course_id
 		AND q.set_number = p_set_number 
-		AND q.question_type_id = 1
+		AND q.question_type_id = 1 -- Flashcard = 1
 	INNER JOIN answer a USING(question_id)
 	WHERE sc.study_course_id = p_study_course_id AND sc.user_id = p_user_id;
 END;
 $$;
 
-SELECT * FROM get_flashcards(20,1,1);
+CREATE OR REPLACE FUNCTION get_multiple_choices(p_study_course_id BIGINT, p_user_id BIGINT, p_set_number INTEGER)
+RETURNS TABLE(question_id BIGINT, set_number INTEGER, question_text TEXT, completed BOOLEAN, correct_answer_index INTEGER, options_json_array JSONB)
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+	RETURN QUERY
+	SELECT q.question_id, q.set_number, q.question_text, q.completed, mco.correct_answer_index, mco.options_json_array JSONB
+	FROM study_course sc
+	INNER JOIN question q ON q.study_course_id = p_study_course_id
+		AND q.set_number = p_set_number
+		AND q.question_type_id = 2 -- Multiple Choice = 2
+	INNER JOIN Multiple_choice_option mco USING(question_id)
+	WHERE sc.study_course_id = p_study_course_id AND sc.user_id = p_user_id;
+	-- GROUP BY q.question_id, q.set_number, q.question_text, q.completed, q.correct_answer_index;
+END;
+$$;
 
-SELECT * FROM question
+-- SELECT * FROM get_flashcards(20,1,1);
+
+-- SELECT * FROM question

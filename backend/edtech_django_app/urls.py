@@ -8,6 +8,8 @@ urlpatterns = [
     path('study-plan/', get_study_plan, name='get_studyplan'),
     path('study-plan/<int:study_course_id>/', get_study_plan, name='get_studyplan_by_id'),
 
-    path('get_flashcards/<str:set>/', get_flashcards, name='get_flashcards')
+    path('get_flashcards/<str:set>/', get_flashcards, name='get_flashcards'),
+    path('get_multiple_choices/<str:set>/', get_flashcards, name='get_multiple_choices')
+    
 
 ]

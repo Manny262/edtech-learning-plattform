@@ -24,7 +24,7 @@ export const useAuthStore = defineStore("auth", {
         this.setAuthState(response.data);
         
         console.log('Login successful:', response.data);
-        window.location.href = '/about';
+        window.location.href = '/timeline';
       } catch (error) {
         console.error('Login failed:', error);
         this.isAuthenticated = false;

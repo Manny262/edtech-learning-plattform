@@ -141,3 +141,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 client_secret*.json
+
+# Test/scratch files
+backend/edtech_django_app/views/test_view.py

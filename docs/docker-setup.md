@@ -53,9 +53,9 @@ services:
     image: postgres:18.2
     restart: always
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
     env_file: .env
     volumes:
         - postgres_data:/var/lib/postgresql
@@ -66,7 +66,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   backend:
     build:
       context: ./backend
@@ -74,20 +85,22 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
+      REDIS_URL: redis://redis:6379/1
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - ./backend:/app
-    command: sh -c "python manage.py migrate  &&  
+    command: sh -c "
+                    python manage.py migrate &&
                     python manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
   frontend:
     build:
       context: ./frontend
-    environment:
-      VITE_API_URL: http://backend:8000
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -96,7 +109,8 @@ services:
     depends_on:
       - backend
 volumes:
-  postgres_data:
+  postgres_data:   
+
 ```
 
 ## Quick Reference

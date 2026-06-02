@@ -57,3 +57,13 @@ def get_flashcards(request, set):
     result = db_query('SELECT * FROM get_flashcards(%s,%s,%s)', [int(set_params[0]), request.user.id, int(set_params[1])])
     
     return Response(result, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@ensure_csrf_cookie
+def get_multiple_choices(request, set):
+    set_params = set.split('-')
+    result = db_query('SELECT * FROM get_multiple_choices(%s,%s,%s)', [int(set_params[0]), request.user.id, int(set_params[1])])
+    print(result)
+    return Response(result, status=status.HTTP_200_OK)
+    

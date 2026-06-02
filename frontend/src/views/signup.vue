@@ -20,7 +20,6 @@
                     id="email"
                     v-model="email"
                     type="email"
-                    required
                     placeholder="Skriv inn e-post"
                 />
             </div>

@@ -68,6 +68,18 @@ BEGIN
 END;
 $$;
 
--- SELECT * FROM get_flashcards(20,1,1);
+CREATE OR REPLACE FUNCTION check_user_study_course(p_study_course_id BIGINT)
+RETURNS TABLE (study_course_id BIGINT, user_id BIGINT)
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+	RETURN QUERY
+	SELECT sc.study_course_id, sc.user_id
+	FROM study_course sc
+	WHERE sc.study_course_id = p_study_course_id;
+END; 
+$$
 
+-- SELECT * FROM get_flashcards(20,1,1);
+	
 -- SELECT * FROM question

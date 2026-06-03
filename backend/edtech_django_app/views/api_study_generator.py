@@ -20,10 +20,14 @@ load_dotenv(BASE_DIR / '.env')
 
 api_key = os.environ.get('ANTHROPIC_API_KEY')
 
-models = ['claude-sonnet-4-5', 'claude-haiku-4-5']
+models = ['claude-sonnet-4-6', 'claude-haiku-4-5']
 cache.set('current_model', 'claude-sonnet-4-5')
-
-
+providers = [
+    ("bedrock", anthropic.AnthropicBedrock(aws_region='eu-north-1'),
+    "eu.anthropic.claude-sonnet-4-6"),
+    ("api", anthropic.Anthropic(api_key=api_key),
+    "claude-sonnet-4-6"),
+    ]
 SCHEMA_TEMPLATE = {
     "study_plan": {
         "subject": "",

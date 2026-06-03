@@ -15,21 +15,13 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 load_dotenv(BASE_DIR / '.env')
 
 api_key = os.environ.get('ANTHROPIC_API_KEY')
 
-models = ['claude-sonnet-4-6', 'claude-haiku-4-5']
-cache.set('current_model', 'claude-sonnet-4-5')
-providers = [    
-    # ("bedrock", anthropic.Anthropic(base_url='https://bedrock-mantle.eu-north-1.api.aws/anthropic', api_key=aws_bearer_token),
-    # "eu.anthropic.claude-sonnet-4-6"),
-    ("bedrock", anthropic.AnthropicBedrock(aws_region='eu-north-1'),
-    "eu.anthropic.claude-sonnet-4-6"),
-    ("api", anthropic.Anthropic(api_key=api_key),
-    "claude-sonnet-4-6"),
-    ]
+
+
 SCHEMA_TEMPLATE = {
     "study_plan": {
         "subject": "",
@@ -78,7 +70,63 @@ Rules:
 - All dates must be in Format (DD-MM-YYYY).
 - test_type_id must be the integer provided, not a string."""
 
+providers = [    
+    # ("bedrock", anthropic.Anthropic(base_url='https://bedrock-mantle.eu-north-1.api.aws/anthropic', api_key=aws_bearer_token),
+    # "eu.anthropic.claude-sonnet-4-6"),
+    ("bedrock", anthropic.AnthropicBedrock(aws_region='eu-north-1'),
+    "eu.anthropic.claude-sonnet-4-6"),
+    ("api", anthropic.Anthropic(api_key=api_key),
+    "claude-sonnet-4-6"),
+    ]
 
+last_provider_error = None
+
+def _name_format(name):
+    return f'Provider: {name}'
+
+def _set_last_provider_error(name, e):
+    cache.set(f'last_provider_error', f'{_name_format(name)}, error: {e}')
+
+def _set_timeout(name):
+    cache.set(_name_format(name), True, timeout=60) #set timeout to 600 in production 
+
+def _timeout_check(name):
+    return bool(cache.get(_name_format(name)))
+
+def _clear_timeout(name):
+    cache.delete(_name_format(name))
+    
+def _is_retryable(e):
+    retryable_errors = (anthropic.APIConnectionError, anthropic.RateLimitError, anthropic.InternalServerError)
+    if isinstance(e, retryable_errors):
+        return True
+    return False
+
+def call_with_fallback(SYSTEM_PROMPT, user_message):
+    ordered_providers = sorted(providers, key=lambda p: _timeout_check(p[0]))
+    print(f"ordered providers: {ordered_providers}")
+    for name, client, model in ordered_providers: 
+        try: 
+            study_plan = client.messages.create(
+                model=model,
+                max_tokens=8096,
+                system=SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": user_message}],
+            )
+            print('provider_name:', name)
+            
+            _clear_timeout(name)
+            return study_plan
+        except Exception as e: 
+            if _is_retryable(e):
+                _set_timeout(name)
+                _set_last_provider_error(name, e)
+                print(f'Provider: {name}, \n retryable error: {e}')
+                continue
+            raise e 
+
+models = ['claude-sonnet-4-6', 'claude-haiku-4-5']
+cache.set('current_model', 'claude-sonnet-4-5')
 def call_anthropic(SYSTEM_PROMPT, user_message):
     try:
         current_model = cache.get('current_model')
@@ -103,6 +151,9 @@ def call_anthropic(SYSTEM_PROMPT, user_message):
                     cache.set('current_model', model)
             
             return call_anthropic(SYSTEM_PROMPT, user_message)
+        
+        
+    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -131,6 +182,7 @@ def generate_study_plan(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+    # print('😊', test_type_id)
     user_message = f"""Generate a study plan as JSON using this exact schema:
 
 {json.dumps(SCHEMA_TEMPLATE, indent=2)}
@@ -149,7 +201,9 @@ Generate relevant flashcards (sets), multiple choice questions, and a day-by-day
 Write all content in: {language}.
 Respond with ONLY the filled JSON, no extra text."""
 
-    message = call_anthropic(SYSTEM_PROMPT, user_message)
+    # message = call_anthropic(SYSTEM_PROMPT, user_message)
+    message = call_with_fallback(SYSTEM_PROMPT, user_message)
+
     if message.stop_reason == "max_tokens":
         return Response(
             {"error": "Response was truncated. Try a shorter topic or date range."},

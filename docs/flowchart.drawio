@@ -89,7 +89,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="QjVYnB-Zw18ETsySyY_a" name="UserFlow">
-    <mxGraphModel dx="1471" dy="914" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="3000" math="0" shadow="0" adaptiveColors="auto">
+    <mxGraphModel dx="905" dy="662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="3000" math="0" shadow="0" adaptiveColors="auto">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -423,41 +423,46 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="User visits&amp;nbsp;&lt;div&gt;&quot;new studyplan&quot;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="47.23569230769231" width="111.82" x="732.27" y="970" as="geometry" />
+          <mxGeometry height="47.23569230769231" width="111.82" x="731.36" y="900" as="geometry" />
         </mxCell>
-        <mxCell id="KPC_DyOZSztxoEuKe8hd-3" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KPC_DyOZSztxoEuKe8hd-8">
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-3" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="KPC_DyOZSztxoEuKe8hd-8">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="745.909090909091" y="1198.9765886287628" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="User fills form" vertex="1">
-          <mxGeometry height="28.695652173913043" width="111.81818181818181" x="732.2727272727273" y="1093.7591973244148" as="geometry" />
+          <mxGeometry height="26.24" width="111.82" x="732.27" y="1000" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-29" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KPC_DyOZSztxoEuKe8hd-28" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="KPC_DyOZSztxoEuKe8hd-8" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="&lt;div style=&quot;background-color: rgb(30, 30, 30); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;&quot;&gt;&lt;font color=&quot;#dcdcaa&quot;&gt;call_fallback()&lt;/font&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-8" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="call_fallback()" vertex="1">
           <mxGeometry height="124.344" width="176.36" x="700" y="1170.2846153846153" as="geometry" />
         </mxCell>
-        <mxCell id="KPC_DyOZSztxoEuKe8hd-9" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KPC_DyOZSztxoEuKe8hd-12">
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-9" edge="1" parent="1" source="6YnnKEVcMN7kjcO2qXV7-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="KPC_DyOZSztxoEuKe8hd-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="991.4210526315788" y="2259.996588628763" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6YnnKEVcMN7kjcO2qXV7-2" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="6YnnKEVcMN7kjcO2qXV7-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-10" parent="1" style="whiteSpace=wrap;html=1;" value="Gets new studyplan and practice materials" vertex="1">
-          <mxGeometry height="57.391304347826086" width="111.81818181818181" x="935.4527272727273" y="2079.9952842809366" as="geometry" />
+          <mxGeometry height="57.391304347826086" width="111.81818181818181" x="935.4527272727273" y="2089.9952842809366" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-11" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KPC_DyOZSztxoEuKe8hd-15">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="backend/database saves studyplan and prompt to database" vertex="1">
-          <mxGeometry height="67.40123076923076" width="122.73" x="930" y="2165.64076923077" as="geometry" />
+          <mxGeometry height="67.40123076923076" width="122.73" x="929.9999999999999" y="2288.25076923077" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Redirects user to timeline page&amp;nbsp;" vertex="1">
-          <mxGeometry height="57.391304347826086" width="111.81818181818181" x="935.4527272727273" y="2280.864849498328" as="geometry" />
+          <mxGeometry height="57.391304347826086" width="111.81818181818181" x="935.4527272727272" y="2403.4748494983282" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-31" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KPC_DyOZSztxoEuKe8hd-30" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="KPC_DyOZSztxoEuKe8hd-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="sort providers (healthy first&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;)" vertex="1">
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="sort providers (healthy first)" vertex="1">
           <mxGeometry height="60" width="120" x="727.2700000000001" y="1330.0006153846155" as="geometry" />
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-33" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KPC_DyOZSztxoEuKe8hd-32" value="">
@@ -494,7 +499,7 @@
         <mxCell id="KPC_DyOZSztxoEuKe8hd-50" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="KPC_DyOZSztxoEuKe8hd-49">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="KPC_DyOZSztxoEuKe8hd-52" connectable="0" parent="KPC_DyOZSztxoEuKe8hd-50" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;nbsp; &amp;nbsp; anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;APIConnectionError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;token token&quot; style=&quot;color: rgb(129, 136, 152);&quot;&gt;# nettverk / timeout&lt;/span&gt;&lt;br&gt;    anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;RateLimitError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;,&lt;/span&gt;       &lt;span class=&quot;token token&quot; style=&quot;color: rgb(129, 136, 152);&quot;&gt;# 429&lt;/span&gt;&lt;br&gt;    anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;InternalServerError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;token token&quot; style=&quot;color: rgb(129, 136, 152);&quot;&gt;# 500&lt;/span&gt;&lt;br&gt;    anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;APIStatusError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;, #503&lt;/span&gt;" vertex="1">
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-52" connectable="0" parent="KPC_DyOZSztxoEuKe8hd-50" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;nbsp; &amp;nbsp; anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;APIConnectionError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;token token&quot; style=&quot;color: rgb(129, 136, 152);&quot;&gt;# nettverk / timeout&lt;/span&gt;&lt;br&gt;    anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;RateLimitError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;,&lt;/span&gt;       &lt;span class=&quot;token token&quot; style=&quot;color: rgb(129, 136, 152);&quot;&gt;# 429&lt;/span&gt;&lt;br&gt;    anthropic&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;.&lt;/span&gt;InternalServerError&lt;span class=&quot;token token&quot; style=&quot;color: rgb(211, 215, 222);&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;token token&quot; style=&quot;color: rgb(129, 136, 152);&quot;&gt;# 500&lt;/span&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry relative="1" x="-0.083" y="-1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -536,6 +541,18 @@
         </mxCell>
         <mxCell id="KPC_DyOZSztxoEuKe8hd-61" parent="1" style="whiteSpace=wrap;html=1;rounded=1;" value="raise error" vertex="1">
           <mxGeometry height="60" width="120" x="490.0000000000001" y="1675" as="geometry" />
+        </mxCell>
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-68" edge="1" parent="1" source="KPC_DyOZSztxoEuKe8hd-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=classic;endFill=1;" target="KPC_DyOZSztxoEuKe8hd-67" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="787" y="1052" as="sourcePoint" />
+            <mxPoint x="788" y="1170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KPC_DyOZSztxoEuKe8hd-67" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="frontend makes Post-request to generate_study_plan()" vertex="1">
+          <mxGeometry height="60" width="128.18" x="724.09" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="6YnnKEVcMN7kjcO2qXV7-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="User reviews and edits material" vertex="1">
+          <mxGeometry height="50" width="115.91" x="933.41" y="2200" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

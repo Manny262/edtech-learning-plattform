@@ -22,7 +22,9 @@ api_key = os.environ.get('ANTHROPIC_API_KEY')
 
 models = ['claude-sonnet-4-6', 'claude-haiku-4-5']
 cache.set('current_model', 'claude-sonnet-4-5')
-providers = [
+providers = [    
+    # ("bedrock", anthropic.Anthropic(base_url='https://bedrock-mantle.eu-north-1.api.aws/anthropic', api_key=aws_bearer_token),
+    # "eu.anthropic.claude-sonnet-4-6"),
     ("bedrock", anthropic.AnthropicBedrock(aws_region='eu-north-1'),
     "eu.anthropic.claude-sonnet-4-6"),
     ("api", anthropic.Anthropic(api_key=api_key),

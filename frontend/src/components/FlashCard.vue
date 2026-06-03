@@ -73,6 +73,9 @@ export default {
             if(boolean){
                 arr.push(this.activeCard)
                 localStorage.setItem('completed_questions_arr', JSON.stringify(arr))
+                if (arr.length >= 3){
+                    this.saveCompletedQuestions()
+                } 
             }
 
             this.activeCard = this.set[current_index]
@@ -80,7 +83,26 @@ export default {
             this.otherSide = this.SideType
             this.SideType = 'spørsmål'
             this.SideDisplay = this.activeCard.question_text
+        },
+        saveCompletedQuestions(){
+            let arr = JSON.parse(localStorage.getItem('completed_questions_arr')) || []
+            let study_course_id = localStorage.getItem('question_set_param').split('-')[0]
+            console.log(study_course_id)
+            
+            const form = new FormData()
+            form.append('completed_questions_arr', arr)
+            form.append('study_course_id', study_course_id)
+        
+            axios.post('/api/mark_question_as_completed', form)
+            .then(response => {
+                console.log(response)
+                localStorage.setItem('completed_questions_arr', [])
+            })
+            .catch(error => {
+                console.error(error)
+            })
         }
     }
 }
+
 </script>

@@ -18,7 +18,7 @@
             <span v-else>{{ task.description }}</span>
             <span v-if="task.task_type_id">({{ task.task_type_id }})</span>
           </div>
-        </div>
+          </div>
       </div>
     </div>
   </div>

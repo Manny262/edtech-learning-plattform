@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.db import connection as conn
 
+from .helpers import db_query
 
 import json
 
@@ -16,14 +17,14 @@ def clean_task(task):
         redundant = ['scheduled_date', 'focus_area']
         return {k: v for k, v in task.items() if k not in redundant}
             
-def db_query(query, params):
-    cursor = conn.cursor()
-    cursor.execute(query, params)
-    columns = [col[0] for col in cursor.description]
-    results = cursor.fetchall()
-    cursor.close()
+# def db_query(query, params):
+#     cursor = conn.cursor()
+#     cursor.execute(query, params)
+#     columns = [col[0] for col in cursor.description]
+#     results = cursor.fetchall()
+#     cursor.close()
     
-    return [dict(zip(columns, row)) for row in results]
+#     return [dict(zip(columns, row)) for row in results]
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -39,7 +40,7 @@ def get_study_plan(request, study_course_id=None):
             {"scheduled_date": date,
                 "focus_area": tasks[0]['focus_area'],
                 "tasks": [clean_task(task) for task in tasks ]
-                }
+            }
             for date, tasks in grouped.items()
         ]
     else:

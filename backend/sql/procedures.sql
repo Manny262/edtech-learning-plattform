@@ -77,4 +77,23 @@ BEGIN
 END;
 $$;
 
+DROP PROCEDURE mark_questions(jsonb);
+CREATE OR REPLACE PROCEDURE mark_questions(p_data JSONB) --questions_array JSONB
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    q JSONB;
+BEGIN 
+	FOR q IN SELECT jsonb_array_elements(p_data->'questions_array')
+	LOOP
+		UPDATE question qt		
+		SET completed = TRUE
+		WHERE q->'question_id' = qt.question_id;
+	END LOOP; 
+END;
+$$;
 
+
+
+
+CALL mark_questions('[{"question_id":1,"set_number":1,"question_text":"Hva er en velferdsstat?","completed":false,"answer_text":"En velferdsstat er et samfunn hvor staten tar ansvar for innbyggernes velferd gjennom offentlige tjenester som helsevesen, utdanning, trygd og sosiale støtteordninger."},{"question_id":2,"set_number":1,"question_text":"Hva er de tre hovedmodellene for velferdsstater?","completed":false,"answer_text":"De tre hovedmodellene er: Den universelle/nordiske modellen, den konservative/kontinentaleuropeiske modellen, og den liberale/angloamerikanske modellen."},{"question_id":3,"set_number":1,"question_text":"Hva kjennetegner den nordiske velferdsmodellen?","completed":false,"answer_text":"Den nordiske modellen kjennetegnes av universelle rettigheter, høy offentlig finansiering gjennom skatt, generøse velferdsordninger og likhet mellom kjønn og sosiale grupper."},{"question_id":4,"set_number":1,"question_text":"Når ble grunnlaget for den norske velferdsstaten lagt?","completed":false,"answer_text":"Grunnlaget ble hovedsakelig lagt etter andre verdenskrig, fra 1945 og utover, med kraftig utbygging på 1960- og 1970-tallet."},{"question_id":5,"set_number":1,"question_text":"Hva er NAV?","completed":false,"answer_text":"NAV (Nye arbeids- og velferdsetaten) er en statlig etat som forvalter arbeidsmarkedstiltak, pensjon, sykepenger, dagpenger og andre trygdeordninger i Norge."}]')

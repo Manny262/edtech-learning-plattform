@@ -88,7 +88,7 @@ def _set_last_provider_error(name, e):
     cache.set(f'last_provider_error', f'{_name_format(name)}, error: {e}')
 
 def _set_timeout(name):
-    cache.set(_name_format(name), True, timeout=60) #set to timeout to 600 in production 
+    cache.set(_name_format(name), True, timeout=60) #set timeout to 600 in production 
 
 def _timeout_check(name):
     return bool(cache.get(_name_format(name)))
@@ -182,7 +182,7 @@ def generate_study_plan(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    print('😊', test_type_id)
+    # print('😊', test_type_id)
     user_message = f"""Generate a study plan as JSON using this exact schema:
 
 {json.dumps(SCHEMA_TEMPLATE, indent=2)}

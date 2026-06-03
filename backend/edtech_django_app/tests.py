@@ -1,6 +1,14 @@
 from django.test import TestCase
 
 # Create your tests here.
+
+"""
+__ __ __ __ __ __ __ __ __ ___
+
+        FALLBACK TEST
+__ __ __ __ __ __ __ __ __ __
+    
+"""
 import anthropic
 from pathlib import Path
 from django.core.cache import cache
@@ -13,7 +21,7 @@ load_dotenv(BASE_DIR / '.env')
 api_key = os.environ.get('ANTHROPIC_API_KEY')
 aws_bearer_token = os.environ.get('AWS_BEARER_TOKEN_BEDROCK')
 providers = [    
-    # ("bedrock", anthropic.Anthropic(base_url='https://bedrock-mantle.eu-north-1.api.aws/anthropic', api_key=aws_bearer_token),
+    # ("bedrock", anthropic.AnthropicBedrock(aws_region='eu-north-1'),
     # "eu.anthropic.claude-sonnet-4-6"),
     ("bedrock", anthropic.AnthropicBedrock(aws_region='eu-north-1'),
     "eu.anthropic.claude-sonnet-4-5"),
@@ -69,4 +77,5 @@ def call_with_fallback(user_message):
                 print(f'Provider: {name}, \n retryable error: {e}')
                 continue
             raise e 
+        
 print(call_with_fallback('Hi Claude!'))
